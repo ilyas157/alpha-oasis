@@ -1,0 +1,556 @@
+import mongoose from 'mongoose';
+
+const DestinationScheme = new mongoose.Schema({
+  title: { type: String, required: true },
+  type: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  description: String,
+  country: String,
+  location: String,
+  duration: Number,
+  departure: String,
+  return: String,
+  price: Number,
+  herbergement: Boolean,
+  petit_dej: Boolean,
+  Transfert: Boolean,
+  nb_personnes: Number,
+  src: String,
+});
+
+const UserScheme = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, enum: ['admin', 'user'], default: 'user' },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+});
+
+const MessageScheme = new mongoose.Schema({
+  name: String,
+  email: String,
+  phone: Number,
+  sujet: String,
+  message: String,
+  createdAt: { type: Date, default: Date.now },
+});
+
+const FaqScheme = new mongoose.Schema({
+  question: { type: String, required: true },
+  answer: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+});
+
+const Message = mongoose.model('Message', MessageScheme);
+const User = mongoose.model('User', UserScheme);
+const Destination = mongoose.model('Destination', DestinationScheme);
+const Faq = mongoose.model('Faq', FaqScheme);
+
+const AcceillScheme = new mongoose.Schema({
+  hero: {
+    title: String,
+    subtitle: String,
+    button_text: String,
+    background_image: [String],
+  },
+  services: [
+    {
+      title: String,
+      description: String,
+      cards: [CardsScheme],
+      img_card: [String],
+      createdAt: { type: Date, default: Date.now },
+      updatedAt: { type: Date, default: Date.now },
+    },
+  ],
+});
+
+const CardScheme = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+});
+
+const GalerieScheme = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    photos: [GaleriePhotoScheme],
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const GaleriePhotoScheme = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    src: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const ContactScheme = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    cards: [CardScheme],
+  },
+  { timestamps: true }
+);
+
+const voyage = {
+  *title: String,
+  *label: String,
+  *note: Number,
+  *promotion: Boolean,
+  *pormo_price : Number,
+  *departure_date: Date,
+  *return_date: Date,
+  *duree: Number,
+  *disponibilité: Date,
+  *nombre_personne: Number,
+  ___type_bagages: {},
+  _-document: [String],
+  ___transefert_aero: Boolean,
+  vols: Boolean,
+  -period: String,
+
+  *departure_location: [String],
+  --prix: {
+    chambre_simple: Number,
+    chambre_double: Number,
+    chambre_triple: Number,
+    chambre_quadruple: Number,
+  },
+  *logement: String,
+  *program: [program],
+};
+
+
+
+const program = {
+  day_number: Number,
+  description: String,
+  destination: String,
+  meals: {
+    breakfast: Boolean,
+    lunch: Boolean,
+    dinner: Boolean,
+  },
+};
+
+
+
+const voyage = {
+  longeur_trajet
+  *title: String,
+  -**label: String,
+  **rating: Number,
+  *-*promotion: Boolean,
+  *-*pormo_price : Number,
+  *departure_date: Date,
+  *return_date: Date,
+  *duree: Number,
+  *disponibilité: Date,
+  *nombre_personne: Number,
+  -**period: String,
+  *departure_location: [String],
+  -*----*prix: Number,
+  -*----*logement: String,
+  -*-----*program: [program],
+  conseil: String
+};
+
+
+
+ const omra = {
+  details : voyage,
+  
+ }
+
+
+
+const list_independant = [
+  label,
+  period,
+  document,
+  prix,
+  logement,
+  program,
+  vols,
+]
+
+const list_global_tables = [
+  omra,
+  voyages_organisés,
+  hotel,
+  omra_trip :
+  user,
+  admin,
+]
+
+const omra_trip {
+  omra_period: omra,
+  trip_period: voyages_organisés,
+
+}
+
+const reservations = {
+  destination_id: Number,
+  destination_main_details:
+  count : Number,
+  max_personne : Number,
+  place_restante,
+  date_limite: Date,
+  status : ['valable','expiré','']
+}
+
+
+const user = {
+  username,
+  name,
+  password,
+  avatar,
+  email,
+  phone,
+  reservations: {
+    details of the trip,
+    status : ['approuvé', 'en cours', 'rejeté']
+  }
+  liked_destinations,
+  saved_destinations,
+  history_reservations,
+  messages {
+    details,
+    status : ['lu', 'non lu']
+  }
+}
+
+
+
+const label = ["top vente","mieux noté",""]
+
+const period = {
+  voyage: ["été","hiver","printemps","automne"],
+  omra: ["AL MAWLID", "RAJAB", "CHAABAN", "RAMADAN","CHAWAL"]
+}
+
+
+const detail_herbergement = {
+  parking,
+  wifi gratuit,
+  piscine,
+  climatisation,
+  petit_dej,
+  piscine,
+}
+
+
+
+const vols = {
+  type_vols:{
+    direct:Boolean
+    escales:Boolean
+    nb_escales:Number,
+  }
+  durée,
+  lieu_depart,
+  aeroport_depart,
+  aeroport_arrive,
+  bagages: 
+  lieu_arrivé,
+  prix
+  depart
+  arrivé,
+  companie,
+}
+
+
+
+
+options_destination = {
+  title,
+  description,
+  tarif,
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------      exmple de voyages organisés ------------------------
+
+
+
+
+const dakhla =  { 
+  transfert: true,
+  period:"été",
+  label: "disponibilité limité",
+  document: ["passport valide","",""],
+  logement : {
+    type: hotel,
+    catégorie: -----,
+    meals:{
+      breakfast:true,
+      lunch:false,
+      dinner: false,
+    },
+    type_chambres: ["chambre_simple", "chambre_double", "chambre_triple"],
+    piscine: true,
+    proximité:"moyenne",
+    wifi gratuit:true,
+    climatisation:true,
+  },
+  titre : visite dakhla,
+  img: "...................."
+  description: blablabla,
+  lieu_depart : fez,
+  lieu d'arrivé :dakhla,
+  date_depart: 12/07/2025,
+  heure_depart: 9h00,
+  heure_depart: 13h00,
+  date_retour: 19/07/2025,
+  durée: 8,
+  place: 25,
+  place_restante: 4,
+  date_limite_reservation: 10/07/2025,
+  transport: {
+    type_vols:{
+    aller_simple:false,
+    aller_retour: true,
+    direct:true
+    escales:false
+    nb_escales:null,
+    }
+    durée:3h05min,
+    aeroport_depart:"aeroport Fez-Saiss",
+    aeroport_arrive:"aeroport Dakhla",
+    bagages:{
+      aller:"1 x 20kg",
+      retour:"1 x 20kg"
+    } 
+    prix:500,
+    depart:9h00,
+    arrivé:12h05,
+    company:"rayanair",
+  },
+  program: {
+    {},
+    {
+      journé: 2,
+      titre: "deuxième jour",
+      description:"",
+      activité:{
+        ordre: 1,
+        optionel: false,
+        titre: "visite vallée blanche",
+        heure:8h00,
+        description:"",
+      }
+      activité:{
+        ordre: 2,
+        optionel: true,
+        prix: 150,
+        titre: "surf",
+        heure:11h00,
+        description:"",
+      }
+      activité: {
+        ordre:3,
+        optionel:true,
+        prix:null,
+        titre: "déjeuner libre",
+        heure:13h30,
+        description:"",
+      }
+      activité: {
+        ordre:4,
+        optionel:false,
+        titre: "repos à l'hotel",
+        heure:14h30,
+        description:"",
+      }
+      activité: {
+        ordre:5,
+        optionel:false,
+        titre: "visite centre ville",
+        heure:16h30,
+        description:"",
+      }
+      activité: {
+        ordre:6,
+        optionel:true,
+        prix:"null",
+        titre: "dinner libre",
+        heure:21h30,
+        description:"",
+      }
+      activité: {
+        ordre:7,
+        optionel:false,
+        titre: "retour à l'hotel",
+        heure:22h30,
+        description:"",
+      }},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+  },
+  tarification: {
+  chambres: {
+    simple: { prix: 2800 },
+    double: { prix: 2600 },
+    triple: { prix: 2400 },
+    quadruple: { prix: 2200 }
+  },
+
+  inclus: [
+    "Vol aller-retour",
+    "Petit-déjeuner",
+    "Transfert hôtel-aéroport"
+  ],
+
+  non_inclus: [
+    "Déjeuner",
+    "Activités libres",
+    "Assurance premium"
+  ],
+
+  options: [
+    {
+      id: "surf",
+      label: "Cours de surf",
+      description: "1h encadrée par un moniteur local",
+      prix: 150,
+      obligatoire: false,
+      type: "activite",
+      multiple: false
+    },
+  ],
+  promotions: [
+    {
+      type: "early_booking",
+      active: true,
+      description: "Réservez avant le 15 juin et économisez jusqu’à 15%",
+      prix_promo_par_chambre: {
+        double: 2300,
+        triple: 2100
+      },
+      date_limite: "2025-06-15"
+    },
+    {
+      type: "last_minute",
+      active: false,
+      description: "Offre dernière minute pour les départs avant le 10 juillet",
+      prix_promo_par_chambre: {
+        double: 2200,
+        simple: 2500
+      },
+      date_limite: "2025-07-10"
+    }
+  ]
+}
+}
+
+
+
+
+
+
+const voyage = {
+  longeur_trajet
+  title: String,
+  label: String,
+  **rating: Number,
+  *-*promotion: Boolean,
+  *-*pormo_price : Number,
+  departure_date: Date
+  *return_date: Date,--------------
+  duree: Number,---------------
+  disponibilité: Date,---------------------
+  nombre_personne: Number,-----------------
+  period: String,
+  departure_location: [String],----------------
+  -*----*prix: Number,
+  -*----*logement: String,
+  -*-----*program: [program],
+  conseil: String
+};
+
+
+
+message : (
+  ajout status :lu non lue,
+)
+
+user (
+  va liker,
+  enregister un voyage ..
+)
+
+transport y a les vols pour les destinations inter y a les bus touristique pour le locale et vols pour local ou bus aller retour vols...
+
+
+catégorie dans logement était pour dire hotel 5 ou 4 * mais pour les autres c'est bizarre
+type chambre dans logement n'a aucin sens à moins que c'est de préciser les types de chambres dispo dans le voyages
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+find({
+  destination : {$regex : "marrakech", $options: "i"},
+  room : {
+    matchAll: {
+      roomType: "double",
+      bedType : "twin",
+      price :{$lte: 500},
+    }
+  }
+})
+
+this is equivelent to : ?destination="marrakech"&roomType="double"&bedType="twin"&price="500"
